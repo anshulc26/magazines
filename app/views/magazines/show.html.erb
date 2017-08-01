@@ -1,0 +1,37 @@
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2">    
+        <%if notice%>
+          <p id="notice" class="alert alert-success"><%= notice %></p>
+        <% end %>
+
+        <p>
+          <strong>Title:</strong>
+          <%= @magazine.title %>
+        </p>
+
+        <p>
+          <strong>Description:</strong>
+          <%= @magazine.description %>
+        </p>
+
+        <p>
+          <strong> Author: </strong>
+          <%= @magazine.user.full_name %>
+        </p>
+
+        <% if @articles.size > 0 %>
+      		<%= render partial: "article_list" %>
+        <% else %>
+          <div> Magazine has no article.</div>
+        <% end %>
+        <% if current_user && current_user.id == @magazine.user.id %>
+          <%= link_to "New Article", new_magazine_article_path(@magazine),class: "btn btn-blue btn-xs"  %> |
+          <%= link_to 'Edit', edit_magazine_path(@magazine), class: "btn btn-xs btn-danger" %> |
+        <% end %>
+        <%= link_to 'Back', current_user.present? ? magazines_path : root_path , class: "btn btn-xs btn-danger" %>
+      </div>
+    </div>
+  </div>
+</div>
